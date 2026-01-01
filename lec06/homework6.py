@@ -3,42 +3,49 @@ import numpy as np
 def minimum_Fs(f):
     '''
     Find the lowest sampling frequency that would avoid aliasing for a pure tone at f Hz.
-    
+     
     @param:
     f (scalar): frequency in Hz (cycles/second)
-    
+     
     @result:
     Fs (scalar): the lowest sampling frequency (samples/second) that would
     not cause aliasing at a tone of f Hz.
     '''
-    Fs = 0  # change this line
+    # The sampling rate must be at least twice the frequency (Nyquist limit)
+    # If Fs < 2*f, aliasing occurs.
+    Fs = 2 * f
     return Fs
 
 def omega(f, Fs):
     '''
     Find the radial frequency (omega) that matches a given f and Fs.
-    
+     
     @param:
     f (scalar): frequency in Hz (cycles/second)
     Fs (scalar): sampling frequency in samples/second
-    
+     
     @result:
     omega (scalar): radial frequency in radians/sample
     '''
-    omega = 0  # change this line
+    # Formula: omega = 2 * pi * (f / Fs)
+    omega = 2 * np.pi * f / Fs
     return omega
 
 def pure_tone(omega, N):
     '''
     Create a pure tone of N samples at omega radians/sample.
-    
+     
     @param:
     omega (scalar): radial frequency, samples/second
     N (scalar): duration of the tone, in samples
-    
+     
     @result:
     x (array): N samples from the signal cos(omega*n)
     '''
-    x = 0 # change this line
+    # 1. Create the time index array: [0, 1, 2, ..., N-1]
+    n = np.arange(N)
+    
+    # 2. Compute the cosine signal: x[n] = cos(omega * n)
+    x = np.cos(omega * n)
+    
     return x
-
